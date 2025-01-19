@@ -52,16 +52,18 @@ public class QuestionService {
                 }
             } catch (TimeoutException e) {
                 System.out.println("Time's up!");
+                System.out.println();
                 future.cancel(true); // Cancel the task
                 selection[i] = "9"; // Default for timeout
             } catch (Exception e) {
                 System.err.println("Error while collecting answer: " + e.getMessage());
+                System.out.println();
                 selection[i] = "9"; // Default for errors
             }
         }
     }
 
-    public void printScore() {
+    public int printScore() {
         int score = 0;
 
         System.out.println("Your answers:");
@@ -78,6 +80,19 @@ public class QuestionService {
         }
 
         System.out.println("Your final score is: " + score + "/" + questions.length);
-        executor.shutdown(); // Shut down the executor service
+        System.out.println();
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) { // Wait for 5 seconds
+                System.out.println("Forcing shutdown...");
+                executor.shutdownNow(); // Force shutdown if tasks are not completed
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Error during shutdown: " + e.getMessage());
+            executor.shutdownNow();
+        }
+
+        System.out.println("Quiz completed. Goodbye!");
+        return score;
     }
 }
