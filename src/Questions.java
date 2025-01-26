@@ -6,7 +6,7 @@ public class Questions {
 	private String opt2;
 	private String opt3;
 	private String opt4;
-	private String answer;
+	private String answerOption;
 	
 	public Questions(int id, String question, String opt1, String opt2, String opt3, String opt4, String answer)
 	{
@@ -19,7 +19,7 @@ public class Questions {
 		this.opt2 = opt2;
 		this.opt3 = opt3;
 		this.opt4 = opt4;
-		this.answer = answer;
+		this.answerOption = answer;
 		
 	}
 	
@@ -89,14 +89,14 @@ public class Questions {
 	    }
 
 	    public String getAnswer() {
-	        return answer;
+	        return answerOption;
 	    }
 
 	    public void setAnswer(String answer) {
 	    	if(answer.isEmpty()) {
 	    		throw new IllegalArgumentException("Empty answer provided");
 	    	}
-	        this.answer = answer;
+	        this.answerOption = answer;
 	    }
 	    
 	    
@@ -108,7 +108,7 @@ public class Questions {
 	                ", opt1='" + opt2 + '\'' +
 	                ", opt1='" + opt3 + '\'' +
 	                ", opt1='" + opt4 + '\'' +
-	                ", answer='" + answer +'\'' +
+	                ", answer='" + answerOption +'\'' +
 	                '}';
 	                
 	    }
